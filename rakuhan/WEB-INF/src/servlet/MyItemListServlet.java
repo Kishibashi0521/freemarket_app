@@ -14,49 +14,45 @@ import bean.User;
 import dao.ItemDAO;
 
 public class MyItemListServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request ,HttpServletResponse response)
-			throws ServletException ,IOException{
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-				// エラー文を格納する変数error
-				// 遷移先を示すcmd
-				String error = "";
+		// エラー文を格納する変数error
+		// 遷移先を示すcmd
+		String error = "";
 
-				// セッション準備
-				HttpSession session = request.getSession();
-				User user = (User) session.getAttribute("user");
-				//セッション切れか確認
-				if(user == null){
-				//セッション切れならerror.jspへフォワード
-				request.setAttribute("error","セッション切れの為、メニュー画面が表示できませんでした。");
-				request.getRequestDispatcher("/view/login.jsp").forward(request, response);
-				return;
-				}
+		// セッション準備
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		// セッション切れか確認
+		if (user == null) {
+			// セッション切れならerror.jspへフォワード
+			request.setAttribute("error", "セッション切れの為、メニュー画面が表示できませんでした。");
+			request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+			return;
+		}
 
+		try {
 
-				try {
+			ItemDAO itemDao = new ItemDAO();
 
-					ItemDAO itemDao = new ItemDAO();
+			ArrayList<Item> list = new ArrayList<Item>();
 
-					ArrayList<Item> list = new ArrayList<Item>();
+			list = itemDao.selectByUser(user);
 
-					list = itemDao.selectByUser(user);
+			// item_listという名前のリクエストスコープに登録
+			request.setAttribute("myitem_list", list);
 
+		} catch (IllegalStateException e) {
+			error = "DB接続エラーの為、一覧表示はできませんでした。";
 
+		} finally {
+			if (error.equals("")) {
+				request.getRequestDispatcher("/view/myItemList.jsp").forward(request, response);
+			} else {
+				request.setAttribute("error", error);
 
-
-					// item_listという名前のリクエストスコープに登録
-					request.setAttribute("myitem_list", list);
-
-				} catch (IllegalStateException e) {
-					error = "DB接続エラーの為、一覧表示はできませんでした。";
-
-				} finally {
-					if (error.equals("")) {
-						request.getRequestDispatcher("/view/myitemList.jsp").forward(request, response);
-					}
-					request.setAttribute("error", error);
-
-					request.getRequestDispatcher("/view/myitemList.jsp").forward(request, response);
-				}
+				request.getRequestDispatcher("/view/myItemList.jsp").forward(request, response);
 			}
 		}
+	}
+}

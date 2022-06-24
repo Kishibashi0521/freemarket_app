@@ -1,7 +1,4 @@
 <web-app>
-	<session-conig>
-		<session-timeout>5</session-timeout>
-	</session-conig>
 
 	<servlet>
 		<servlet-name>loginMapping</servlet-name>
@@ -40,12 +37,12 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>itemDeleteMapping</servlet-name>
-		<servlet-class>servlet.ItemDeleteServlet</servlet-class>
+		<servlet-name>itemCancelMapping</servlet-name>
+		<servlet-class>servlet.ItemCancelServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>itemDeleteMapping</servlet-name>
-		<url-pattern>/itemDelete</url-pattern>
+		<servlet-name>itemCancelMapping</servlet-name>
+		<url-pattern>/itemCancel</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

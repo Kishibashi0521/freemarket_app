@@ -8,8 +8,11 @@
 <html>
 	<head>
         <title>出品商品情報変更</title>
+        <link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/style.css">
     </head>
     <body>
+    <%@include file="/common/header.jsp"%>
             <div>
         <div>
             <div>
@@ -65,5 +68,6 @@
 				</form>
 
 			</div>
+			<%@include file="/common/footer.jsp"%>
 	</body>
 </html>

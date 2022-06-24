@@ -5,6 +5,14 @@ table {
 	text-align: center;
 }
 
+/*直線*/
+hr {
+	color: #2e8b57;
+	size: 5;
+	width: 1050;
+	align: center;
+}
+
 /*画面上部のメニューと機能表示*/
 .top {
 	height: 150px;
@@ -22,13 +30,7 @@ table {
 
 }
 
-/*直線*/
-hr {
-	color: #2e8b57;
-	size: 5;
-	width: 1050;
-	align: center;
-}
+
 
 /*menu表示*/
 .menu {

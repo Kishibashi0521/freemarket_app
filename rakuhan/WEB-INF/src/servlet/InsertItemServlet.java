@@ -26,15 +26,9 @@ public class InsertItemServlet extends HttpServlet {
 		// 格納オブジェクト
 		Item item = new Item();
 		// 入力パラメータ
-		request.getParameter("itemname");
-		request.getParameter("type");
-		request.getParameter("comment");
-		request.getParameter("price");
-
 		String itemname = request.getParameter("itemname");
 		String type = request.getParameter("type");
 		String comment = request.getParameter("comment");
-
 
 		// セッション準備
 		HttpSession session = request.getSession();
@@ -51,8 +45,6 @@ public class InsertItemServlet extends HttpServlet {
 
 		item.setUserid(userid);
 
-
-
 				try {
 
 					// 格納,エラー確認
@@ -66,24 +58,11 @@ public class InsertItemServlet extends HttpServlet {
 					}
 
 
-					item.setItemname(itemname);
-
-
-					// 格納,エラー確認
-					if (!(type == "0") || !(type == "1") || !(type == "2") || !(type == "3") || !(type == "4")) {
-						error = "不正な値が入力されました。選択してください。";
-						return;
-					}
-					item.setType(type);
-
-
 					// 格納,エラー確認
 					if(comment.length() >= 500) {
 						error = "商品説明は500文字までで入力してください。";
 						return;
 					}
-
-
 
 
 					// 格納,エラー確認 price
@@ -98,6 +77,10 @@ public class InsertItemServlet extends HttpServlet {
 						error = "価格の値が不正の為、出品は行えませんでした。";
 						return;
 					}
+
+					item.setItemname(itemname);
+					item.setType(type);
+					item.setComment(comment);
 					item.setPrice(Integer.parseInt(request.getParameter("price")));
 
 
@@ -113,7 +96,7 @@ public class InsertItemServlet extends HttpServlet {
 						request.getRequestDispatcher("/myItemList").forward(request, response);
 					} else {
 						request.setAttribute("error", error);
-						request.getRequestDispatcher("/view/insertitem.jsp").forward(request, response);
+						request.getRequestDispatcher("/view/insertItem.jsp").forward(request, response);
 					}
 				}
 

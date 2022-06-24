@@ -1,4 +1,4 @@
-<!--<%@page contentType="text/html;charset=UTF-8" %>-->
+<!--<%@page contentType="text/html; charset=UTF-8" %>-->
 <%@page import="java.util.ArrayList,bean.Sales,dao.SalesDAO,bean.Item"%>
 
 <%
@@ -8,14 +8,16 @@
 <html>
 <head>
 <title>購入済み商品リスト</title>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/style.css">
 </head>
 <body>
-	<!--<%@include file= "/common/header.jsp"%>-->
+	<%@include file="/common/header.jsp"%>
 	<table align="center" width="850">
 		<tr>
-			<td>[<!--リンク-->ログイン</a>]
+			<td>[<a>ログイン</a>]
 			</td>
-			<td>[<!--リンク-->メニュー</a>]
+			<td>[<a>メニュー</a>]
 			</td>
 			<td><font size="5">購入済み商品リスト</font></td>
 			<td>&nbsp;</td>
@@ -48,23 +50,23 @@
 
 			</tr>
 		</table>
-		</form>
-		<form action="<%=request.getContextPath()%>/view/trade.jsp"
-			method="get"">
-			<table style="margin: 0 auto">
-				<tr>
-					<td colspan=2 style="text-align: center"><input type="submit"
-						value="取引完了しました"></td>
-				</tr>
-			</table>
-		</form>
-		<%
-			}
+	</form>
+	<form action="<%=request.getContextPath()%>/view/trade.jsp"
+		method="get"">
+		<table style="margin: 0 auto">
+			<tr>
+				<td colspan=2 style="text-align: center"><input type="submit"
+					value="取引完了しました"></td>
+			</tr>
+		</table>
+	</form>
+	<%
+		}
 
-				}
 			}
-		%>
+		}
+	%>
 
-		<!--<%@include file= "/common/footer.jsp"%>-->
+	<%@include file="/common/footer.jsp"%>
 </body>
 </html>

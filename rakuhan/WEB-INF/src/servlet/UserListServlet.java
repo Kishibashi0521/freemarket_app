@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.User;
 import dao.UserDAO;
 
-public class UserListServlet {
+public class UserListServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String error = "";
@@ -33,7 +34,7 @@ public class UserListServlet {
 		} finally {
 			if (error.equals("")) {
 
-				request.getRequestDispatcher("/userList").forward(request, response);
+				request.getRequestDispatcher("/view/userList.jsp").forward(request, response);
 			} else {
 
 				// error.jspに判断

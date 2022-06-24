@@ -29,9 +29,9 @@ public class ItemDAO {
 		Statement smt = null;
 
 		try {
-			String sql = "insert into iteminfo values(NULL, '" + item.getUserid() + "','" + item.getItemname() + "','"
+			String sql = "insert into iteminfo values ( NULL , '" + item.getUserid() + "','" + item.getItemname() + "','"
 					+ item.getType() + "', " + item.getPrice() + " ,'" + item.getComment() + "','" + item.getStatus()
-					+ "','" + item.getCreated_at() + "','" + item.getUpdated_at() +"'";
+					+ "','" + item.getCreated_at() + "', null)";
 			con = getConnection();
 			smt = con.createStatement();
 			smt.executeUpdate(sql);

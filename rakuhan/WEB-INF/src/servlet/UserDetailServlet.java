@@ -4,27 +4,26 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import bean.*;
-import dao.*;
+import bean.User;
+import dao.UserDAO;
 
-public class UserDetailServlet {
+public class UserDetailServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setCharacterEncoding("UTF-8");
 		String error = "";
-		String cmd = "";
+
+		// パラメータを取得
+		String userid = request.getParameter("userid");
+		String cmd = request.getParameter("cmd");
 
 		try {
 			// DTOオブジェクト宣言
 			User user = new User();
 
-			// UserDAOクラスのオブジェクト化
+			// DAOクラスのオブジェクト化
 			UserDAO userDao = new UserDAO();
-
-			// 送信された情報の受け取り
-			String userid = request.getParameter("userid");
-			cmd = request.getParameter("cmd");
 
 			// エラー判定
 			if (userDao.selectByUserid(userid).getUserid() == null && cmd == "detail") {
@@ -39,7 +38,7 @@ public class UserDetailServlet {
 			// 1件検索メソッドを呼び出し
 			user = userDao.selectByUserid(userid);
 
-			// itemという名前のリクエストスコープに登録
+			// userという名前のリクエストスコープに登録
 			request.setAttribute("user", user);
 
 		} catch (IllegalStateException e) {
@@ -47,13 +46,15 @@ public class UserDetailServlet {
 			cmd = "menu";
 		} finally {
 			if (cmd.equals("detail")) {
-				request.getRequestDispatcher("/userDetail").forward(request, response); // 詳細画面に遷移
+				request.getRequestDispatcher("/view/userDetail.jsp").forward(request, response); // 詳細画面に遷移
 			} else if (cmd.equals("update")) {
 				request.getRequestDispatcher("/view/userUpdate.jsp").forward(request, response); // 更新画面に遷移
+			} else if (!error.equals("")) {
+				request.setAttribute("error", error);
+				request.setAttribute("cmd", cmd);
+				request.getRequestDispatcher("/view/userList.jsp").forward(request, response);
 			}
-			request.setAttribute("error", error);
-			request.setAttribute("cmd", cmd);
-			request.getRequestDispatcher("/view/userList.jsp").forward(request, response);
 		}
+
 	}
 }

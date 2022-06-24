@@ -30,6 +30,8 @@ if(error == null){
 <html>
 	<head>
 		<title>ログイン機能</title>
+		<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/style.css">
 	</head>
 	<body>
 		<!--  ヘッダの読み込み  -->
